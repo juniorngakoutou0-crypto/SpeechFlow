@@ -68,4 +68,4 @@ Toutes les spécifications doivent être rédigées en français, y compris les 
 
 **Version :** 1.0
 **Dernière mise à jour :** 2026-01-30
-**Auteur :** SpeechFlow Team
+**Auteur :** Junior
