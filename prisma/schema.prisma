@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  password     String
+  name         String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  folders      Folder[]
+  pdfs         PDF[]
+}
+
+model Folder {
+  id          String   @id @default(cuid())
+  name        String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pdfs        PDF[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model PDF {
+  id                String      @id @default(cuid())
+  title             String
+  originalFileName  String
+  fileUrl           String
+  thumbnailUrl      String?
+  status            PDFStatus   @default(PROCESSING)
+
+  // Source files
+  audioFileUrl      String?
+  videoFileUrl      String?
+
+  // Processing results
+  transcriptionText String?     @db.Text
+  summaryText       String?     @db.Text
+
+  // Metadata
+  duration          Int?        // seconds
+  fileSize          BigInt      // bytes
+
+  // Relationships
+  userId            String
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folderId          String?
+  folder            Folder?     @relation(fields: [folderId], references: [id], onDelete: SetNull)
+
+  // Timestamps
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  processedAt       DateTime?
+
+  @@index([userId])
+  @@index([folderId])
+  @@index([status])
+}
+
+enum PDFStatus {
+  UPLOADING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
