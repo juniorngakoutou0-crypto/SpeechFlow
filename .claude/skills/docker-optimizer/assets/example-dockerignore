@@ -1,0 +1,232 @@
+# ============================================
+# Docker Build Context Optimization
+# ============================================
+# Only files NOT listed here are included in the build context
+# This reduces build time and image size
+
+# ============================================
+# Version Control
+# ============================================
+.git
+.gitignore
+.gitmodules
+.gitattributes
+
+# ============================================
+# CI/CD
+# ============================================
+.github
+.gitlab-ci.yml
+.circleci
+.travis.yml
+.jenkins
+.drone.yml
+Jenkinsfile
+
+# ============================================
+# Package Managers
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+npm-lock.json
+yarn.lock
+pnpm-lock.yaml
+package-lock.json
+
+# ============================================
+# Python
+# ============================================
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv
+env/
+venv/
+
+# ============================================
+# Go
+# ============================================
+go.sum
+vendor/
+bin/
+
+# ============================================
+# Java
+# ============================================
+target/
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+.m2/
+.gradle/
+build/
+
+# ============================================
+# Rust
+# ============================================
+target/
+Cargo.lock
+.cargo/
+
+# ============================================
+# IDE & Editors
+# ============================================
+.vscode
+.idea
+.DS_Store
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
+.vim
+*.iml
+*.sublime-settings
+
+# ============================================
+# Testing & Coverage
+# ============================================
+.nyc_output/
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+.mocha
+.tap
+.c8
+
+# ============================================
+# Build Artifacts
+# ============================================
+dist/
+build/
+*.o
+*.a
+*.so
+*.dylib
+
+# ============================================
+# Logs
+# ============================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ============================================
+# Environment Variables (NEVER include in image)
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.production.local
+.env.development.local
+
+# ============================================
+# Temporary Files
+# ============================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ============================================
+# Documentation
+# ============================================
+README*
+CHANGELOG*
+LICENSE
+CONTRIBUTING.md
+*.md
+docs/
+wiki/
+
+# ============================================
+# Container/VM Files
+# ============================================
+Dockerfile
+docker-compose*.yml
+docker-compose*.yaml
+.dockerignore
+.container*
+Vagrantfile
+.vagrant/
+
+# ============================================
+# Configuration Files (usually not needed in image)
+# ============================================
+.editorconfig
+.prettier*
+.eslintrc*
+.babelrc*
+.jshintrc
+.stylelintrc*
+tsconfig.json
+jest.config.js
+webpack.config.js
+gulpfile.js
+
+# ============================================
+# Misc
+# ============================================
+.cache/
+.history
+.vuepress/dist
+.nuxt
+dist
+.cache/
+.vuepress/dist
+.nuxt
+nuxt.dist
+.nitro
+.cache/
+.output
+.env
+.env.*
+!.env.example
+.nuxi
+.vercel
+.output
+vite.config.ts.timestamp*
+.wrangler
+
+# ============================================
+# Project Specific (uncomment as needed)
+# ============================================
+# Examples/
+# tests/
+# spec/
+# demo/
+# mock-data/
+# migrations/
