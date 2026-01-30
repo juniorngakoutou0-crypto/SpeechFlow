@@ -1,2 +1,5 @@
 # Claude Code configuration
 CLAUDE.md
+.env
+openspec
+
