@@ -1,0 +1,202 @@
+# Configuration Docker Optimizer
+# Copiez ce fichier en .docker-optimizer.yml à la racine de votre projet
+
+# Mode d'analyse
+analysis_mode: adaptive  # adaptive | thorough | quick
+
+# Priorités d'optimisation
+priorities:
+  # Quelle métrique optimiser en priorité ?
+  primary: balanced  # balanced | size | speed | security | compatibility
+
+  # Niveau d'optimisation
+  optimization_level: balanced  # conservative | balanced | aggressive
+
+# Préférences d'images
+image_preferences:
+  # Préférer alpine, slim ou distroless ?
+  base_type: alpine  # alpine | slim | distroless | auto
+
+  # Activer multi-platform builds ?
+  multi_platform: false  # true | false | auto
+
+  # Tag de version ou digest SHA ?
+  version_strategy: tag  # tag | digest | both
+
+# Build configuration
+build:
+  # Activer BuildKit ?
+  buildkit: true
+
+  # Cache mounts ?
+  cache_mounts: true
+
+  # Remote caching (nécessite registry) ?
+  remote_cache: false
+
+  # Build arguments par défaut
+  default_args:
+    NODE_ENV: production
+    PYTHON_ENV: production
+
+# Docker Compose
+compose:
+  # Activer les health checks ?
+  health_checks: true
+
+  # Resource limits par défaut
+  resource_limits:
+    enabled: true
+    default_memory: 512M
+    default_cpu: "1.0"
+
+  # Restart policy
+  restart_policy: unless-stopped  # no | always | on-failure | unless-stopped
+
+  # Networks configuration
+  networks:
+    isolation: true  # Créer des réseaux séparés pour frontend/backend ?
+
+# Sécurité
+security:
+  # Utilisateur non-root (TOUJOURS activé)
+  non_root_user: true
+
+  # Read-only filesystem ?
+  read_only_fs: auto  # true | false | auto
+
+  # Scanner les vulnérabilités ?
+  vulnerability_scan: true
+
+  # SBOM generation ?
+  generate_sbom: false
+
+  # Image signing ?
+  sign_images: false
+
+# Comportement
+behavior:
+  # Poser des questions interactives ?
+  interactive: minimal  # never | minimal | always
+
+  # Auto-detect tout ce qui est possible ?
+  auto_detect: true
+
+  # Générer .dockerignore automatiquement ?
+  generate_dockerignore: true
+
+  # Créer des exemples de .env ?
+  generate_env_example: true
+
+# Métriques cibles
+targets:
+  # Taille maximale de l'image
+  max_image_size: 500MB
+
+  # Build time maximum (avec cache)
+  max_build_time: 120s
+
+  # Cache hit rate minimum
+  min_cache_hit_rate: 70%
+
+# Features avancées
+advanced:
+  # Monorepo - build sélectif ?
+  selective_builds: auto
+
+  # Watch mode pour dev ?
+  dev_watch_mode: true
+
+  # Profiles (dev, staging, prod) ?
+  multi_environment: true
+
+  # Prometheus metrics ?
+  prometheus_metrics: false
+
+  # Distributed tracing ?
+  distributed_tracing: false
+
+# Exclusions
+exclude:
+  # Patterns à ignorer pendant l'analyse
+  patterns:
+    - node_modules
+    - .git
+    - dist
+    - build
+    - coverage
+    - "*.log"
+
+  # Directories à ne pas conteneuriser
+  directories:
+    - test
+    - tests
+    - docs
+
+# Notifications
+notifications:
+  # Afficher des tips pendant le build ?
+  show_tips: true
+
+  # Verbosité
+  verbosity: normal  # quiet | normal | verbose
+
+  # Afficher les métriques finales ?
+  show_metrics: true
+
+# Templates custom
+custom_templates:
+  # Chemin vers des templates Dockerfile custom
+  dockerfile_templates: null
+
+  # Chemin vers des templates compose custom
+  compose_templates: null
+
+# CI/CD Integration
+ci_cd:
+  # Générer des fichiers CI/CD ?
+  generate_ci: false
+
+  # Type de CI/CD
+  ci_type: github  # github | gitlab | circleci | jenkins
+
+  # Build matrix ?
+  build_matrix: false
+
+# Exemples de configurations par scénario
+# Décommentez le scénario qui vous correspond
+
+# Développement local
+# priorities:
+#   primary: speed
+#   optimization_level: conservative
+# behavior:
+#   interactive: always
+
+# Production
+# priorities:
+#   primary: security
+#   optimization_level: aggressive
+# security:
+#   vulnerability_scan: true
+#   generate_sbom: true
+#   sign_images: true
+
+# Startup / Prototype rapide
+# priorities:
+#   primary: speed
+#   optimization_level: conservative
+# behavior:
+#   auto_detect: true
+#   interactive: never
+
+# Enterprise / Compliance
+# priorities:
+#   primary: security
+# security:
+#   generate_sbom: true
+#   sign_images: true
+#   vulnerability_scan: true
+# advanced:
+#   prometheus_metrics: true
+#   distributed_tracing: true
